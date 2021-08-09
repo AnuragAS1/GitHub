@@ -249,17 +249,16 @@ public class INGCollege implements ActionListener
         PreviousPage.addActionListener(this);
     }
 
-    public void actionPerformed(ActionEvent e)
+    public void actionPerformed(ActionEvent A)
     {
-        if(e.getSource()==Add)
+        if(A.getSource()==Add)
         {
             String CourseID="";
             String CourseName="";
             int Duration = 0;
             String Level = "";
             String Credit = "";
-            int NumberOfAssessments = 0;
-            
+            int NumberOfAssessments = 0;            
             try
             {
                 CourseID = JCourseID_.getText();
@@ -271,12 +270,11 @@ public class INGCollege implements ActionListener
                 boolean SameAC = false;
                 for(Course C:AL)
                 {
-                    if (C.getCourseID() == CourseID)
+                    if (C.getCourseID().equals(CourseID))
                     {
-                        SameAC = true;
-                        
+                        SameAC = true;          
                     }
-                }
+                }   
                 if(SameAC==false)
                 {
                     AC = new AcademicCourse(CourseID,CourseName,Duration,Level,Credit,NumberOfAssessments);
@@ -288,19 +286,18 @@ public class INGCollege implements ActionListener
                     JOptionPane.showMessageDialog(f,"The Academic Course has already been added.");
                 }
             }
-
-            catch(Exception A)
+        
+            catch(Exception e)
             {
-                JOptionPane.showMessageDialog(f,"Enter correct values !");
+                JOptionPane.showMessageDialog(p1,"Please fill up the form properly !");
             }
         }
-        else if (e.getSource()==Add1)
+        else if (A.getSource()==Add1)
         {            
             String CourseID = "";
             String CourseName = "";
             int Duration=0;
             String Prerequisite = "";
-            
             try
             {
                 CourseID = JCourseID1_.getText();
@@ -310,10 +307,9 @@ public class INGCollege implements ActionListener
                 boolean SameNAC = false;
                 for(Course C:AL)
                 {
-                    if(C.getCourseID()==CourseID)
+                    if(C.getCourseID().equals(CourseID))
                     {
-                        SameNAC = true;
-                        break;
+                        SameNAC = true;    
                     }
                 }
                 if(SameNAC == false)
@@ -327,13 +323,13 @@ public class INGCollege implements ActionListener
                     JOptionPane.showMessageDialog(f,"The Non-Academic Course has already been added");
                 }
             }
-            catch(Exception A)
+            catch(Exception e)
             {
-                JOptionPane.showMessageDialog(f,"Enter correct value !");
+                JOptionPane.showMessageDialog(f,"Please fill up the form properly !");
             }
         }
 
-        else if (e.getSource()==Register)
+        else if (A.getSource()==Register)
         {
             String CourseID = "";
             String CourseLeader = "";
@@ -343,7 +339,7 @@ public class INGCollege implements ActionListener
             try
             {
                 CourseID = JCourseID2_.getText();
-                CourseLeader = JCourseLeader_.getText();
+                CourseLeader = JCourseID2_.getText();
                 LecturerName = JLecturerName_.getText();
                 StartingDate = JStartingDate_.getText();
                 CompletionDate = JCompletionDate_.getText();
@@ -363,25 +359,25 @@ public class INGCollege implements ActionListener
                             else
                             {
                                 AC.Register(CourseLeader, LecturerName, StartingDate, CompletionDate);
-                                JOptionPane.showMessageDialog(f,"The academic course has been registered.");
-                                break;
+                                JOptionPane.showMessageDialog(f,"The academic course has been registered.");                                
                             }
                         }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(f,"The CourseID do not match.");
-                            break;
-                        }
+                    }
+                    else
+                    {
+                       JOptionPane.showMessageDialog(f,"The CourseID do not match.");
+                       break;
                     }
                 }
             }
-            catch(Exception A)
+
+            catch (Exception E)
             {
-                JOptionPane.showMessageDialog(f,"Please fill the forms properly.");
+                JOptionPane.showMessageDialog(p1,"Please fill up the forms properly !");
             }
         }
 
-        else if (e.getSource()==Register1)
+        else if (A.getSource()==Register1)
         {
             String CourseID = "";
             String CourseLeader = "";
@@ -413,24 +409,23 @@ public class INGCollege implements ActionListener
                             else
                             {
                                 NAC.Register(CourseLeader, InstructorName, StartingDate, CompletionDate, ExamDate);
-                                JOptionPane.showMessageDialog(f,"The non-academic course has been registered.");
-                                break;
+                                JOptionPane.showMessageDialog(f,"The non-academic course has been registered.");   
                             }
                         }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(f,"The CourseID do not match.");
-                            break;
-                        }
-                    }       
+                    }
+                    else 
+                    {
+                        JOptionPane.showMessageDialog(f,"The CourseID do not match.");
+                        break;
+                    }    
                 }
             }
-            catch(Exception A)
+            catch(Exception e)
             {
-                JOptionPane.showMessageDialog(f,"Please fill the forms properly.");
+                JOptionPane.showMessageDialog(f,"Please fill up the form properly !");
             }
         }
-        else if (e.getSource()==Remove)
+        else if (A.getSource()==Remove)
         {
             String CourseID = JCourseID4_.getText();
             try{
@@ -444,35 +439,39 @@ public class INGCollege implements ActionListener
                             {
                                 NAC.Remove();
                                 JOptionPane.showMessageDialog(f,"The Course has been removed.");
-                                break;
+                                
                             }
                             else if(NAC.getisRemoved()==true)
                             {
                                 JOptionPane.showMessageDialog(f,"The Course has been already removed.");
-                                break;
                             }
                         }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(f,"Enter valid CourseID");
-                            break;
-                        }
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(f,"Enter valid CourseID");
+                        break;
                     }
                 }
             }
-            catch(Exception A)
+            catch (Exception e)
             {
-                JOptionPane.showMessageDialog(f,"Do Properly");
-            } 
+                JOptionPane.showMessageDialog(f,"Please fill up the form properly !");
+            }
         }
-        else if (e.getSource()==Display)
+        else if (A.getSource()==Display)
         {
-            
+            for(Course CO:AL)
+            {
+                if(CO instanceof AcademicCourse)
+                {
+                    AcademicCourse AC = (AcademicCourse)CO;
+
                     AC.Display();
-                
-            
+                }
+            }                         
         }
-        else if (e.getSource()==Display1)
+        else if (A.getSource()==Display1)
         {
             for(Course CO:AL)
             {
@@ -485,7 +484,7 @@ public class INGCollege implements ActionListener
             }
         }
 
-        else if (e.getSource()==Clear)
+        else if (A.getSource()==Clear)
         {
             JCourseID_.setText("");
             JCourseName_.setText("");
@@ -497,8 +496,9 @@ public class INGCollege implements ActionListener
             JStartingDate_.setText("");
             JCompletionDate_.setText("");
             JNumberOfAssessments_.setText("");
+            JCourseID2_.setText("");
         }
-        else if (e.getSource()==Clear1)
+        else if (A.getSource()==Clear1)
         {
             JCourseID1_.setText("");
             JCourseName1_.setText("");
@@ -509,14 +509,16 @@ public class INGCollege implements ActionListener
             JCompletionDate1_.setText("");
             JExamDate_.setText("");
             JPrerequisite_.setText("");
+            JCourseID3_.setText("");
+            JCourseID4_.setText("");
         }
-        else if(e.getSource()==NextPage)
+        else if(A.getSource()==NextPage)
         {
             p1.setVisible(false);
             p2.setVisible(true);
             f.add(p2);
         } 
-        else if(e.getSource()==PreviousPage)
+        else if(A.getSource()==PreviousPage)
         {
             p2.setVisible(false);
             p1.setVisible(true);
@@ -528,4 +530,3 @@ public class INGCollege implements ActionListener
         new INGCollege();
     }
 }
-
